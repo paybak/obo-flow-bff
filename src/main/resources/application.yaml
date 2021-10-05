@@ -1,13 +1,13 @@
 azure:
   activedirectory:
-    client-id: <CLIENT_ID_DU_BFF>
-    client-secret: <CLIENT_SECRET_DU_BFF>
-    tenant-id: <TENANT_ID>
-    app-id-uri: <APPLICATION_ID_DU_BFF>
+    client-id: 84fabf81-c786-4a4d-ba9c-40df2637dfb0
+    client-secret: 7E5xZ34.ld__cuVnW9oagOmc-nTxS53N.y
+    tenant-id: 1dc8ab2b-9e72-43d0-b912-21b8fb4a9bd2
+    app-id-uri: http://localhost:8080
     authorization-clients:
       myregistrationid:
         scopes:
-          - <APPLICATION_ID_DE_LA_WEB_API>/user_impersonation
+          - api://3ba786ec-e334-4681-89f0-8e4ba399194a/user_impersonation
 
 webapp:
   registered-endpoints:

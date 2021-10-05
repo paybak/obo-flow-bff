@@ -5,10 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -23,9 +21,6 @@ public class HelloWorldController {
     @Autowired
     private WebClient webClient;
 
-    @Autowired
-    private OAuth2AuthorizedClientRepository oAuth2AuthorizedClientRepository;
-
     @Value("${webapp.registered-endpoints.webapi}")
     public String webApiEndpoint;
 
@@ -37,16 +32,10 @@ public class HelloWorldController {
     }
 
     @GetMapping("/api")
-    public JSONObject api(HttpServletRequest request) {
-        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-        final OAuth2AuthorizedClient authorizedClient = this.oAuth2AuthorizedClientRepository.loadAuthorizedClient("myregistrationid", principal, request);
+    public String api(@RegisteredOAuth2AuthorizedClient("myregistrationid")OAuth2AuthorizedClient authorizedClient) {
+        String result = this.callWebAPI(authorizedClient);
 
-        String result = callWebAPI(authorizedClient);
-
-        JSONObject jo = new JSONObject();
-        jo.put("data", result);
-
-        return jo;
+        return result;
     }
 
     private String callWebAPI(OAuth2AuthorizedClient authorizedClient) {

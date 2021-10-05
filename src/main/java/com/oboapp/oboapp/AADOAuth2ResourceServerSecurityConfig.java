@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class AADOAuth2ResourceServerSecurityConfig extends AADResourceServerWebSecurityConfigurerAdapter {
+public class AADOAuth2ResourceServerSecurityConfig extends s {
 
     /**
      * Add configuration logic as needed.
@@ -19,7 +19,6 @@ public class AADOAuth2ResourceServerSecurityConfig extends AADResourceServerWebS
                 .cors()
                 .and()
                 .authorizeRequests((requests) -> requests.anyRequest().authenticated())
-                ;//.oauth2ResourceServer()
-                //.jwt();
+                ;
     }
 }
